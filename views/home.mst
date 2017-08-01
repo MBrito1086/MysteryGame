@@ -13,12 +13,12 @@
     </div>
 
     <div class="word">
-      <h1>{{.}}</h1>
+      <h1>{{invisWord}}</h1>
     </div>
 
     <div class="guessbox">
       <form class="" action="/" method="post">
-        <input type="text" name="guess" value="">
+        <input type="text" name="guess" value="" placeholder="Type in a Character">
         <button type="submit" name="button">Make a Guess</button>
       </form>
     </div>

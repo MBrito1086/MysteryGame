@@ -19,15 +19,44 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(expressValidator())
 
+const randomWord = words[Math.floor(Math.random() * words.length)]
+
+const invisWord = []
+
+const PLACEHOLDER = "_"
+
+// const guesses = []
+//
+// const hangman = (randomWord, guesses)
+//   randomWord
+//     .split('')
+//     .map(letter => guesses.includes(letter) ? letter : PLACEHOLDER)
+//     .join('')
+
+
+for (let i = 0; i < randomWord.length; i++) {
+  invisWord.push('_')
+}
+
+// randomWord.forEach( PLACEHOLDER => {
+//   invisWord.push(PLACEHOLDER)
+// })
+
+console.log(randomWord);
+console.log(invisWord);
+
+
+
+
+
 
 app.get('/', (req, resp) => {
 
-  resp.render('home');
+  resp.render('home',  { invisWord });
 })
 
 app.post('/', (req, resp) => {
-
-
+  
   resp.redirect('/')
 })
 
