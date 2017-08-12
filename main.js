@@ -22,7 +22,9 @@ const PLACEHOLDER = "_";
 
 const letterGuess = [];
 
-const attempts = 0;
+let attempts;
+
+let message;
 
 const hangman = (randomWord) =>
   randomWord
@@ -34,7 +36,7 @@ const invisWord = hangman(randomWord).split(' ');
 
 app.get('/', (req, resp) => {
   const invisWord = hangman(randomWord);
-
+  attempts = 8
   resp.render('home',  { randomWord, invisWord, attempts });
 })
 
@@ -63,6 +65,19 @@ app.post('/letters', (req, resp) => {
 
   if (letterGuess.includes(guess)) {
     alert = "You have guessed this letter!"
+  }
+
+  if (!randomWord.includes(guess) && (!letterGuess.includes(guess))) {
+  if (attempts === 1){
+    attempts = 0;
+    invisWord = word.split('');
+    message = "You lose!"
+  }
+  attempts--
+  }
+
+  if ((invisWord === randomWord) && (attempts >= 1)) {
+   message = "You won!"
   }
 
   resp.render('home', { invisWord, attempts, letterGuess, randomWord})

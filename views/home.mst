@@ -9,7 +9,8 @@
 
     <div class="title">
       <h2>Mystery Word</h2>
-      <h3>You have {{.}} guesses left.</h3>
+
+      <h3>You have {{#attempts}}{{.}}{{/attempts}} guesses left.</h3>
     </div>
 
     <div class="word">
@@ -24,7 +25,7 @@
     </div>
 
     <div class="lettersguessed">
-      <p>Letters Guessed: {{#guessed}}{{.}}{{/guessed}}</p>
+      <p>Letters Guessed: {{#letterGuess}}{{.}}{{/letterGuess}}</p>
     </div>
 
 
