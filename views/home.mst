@@ -18,7 +18,7 @@
 
     <div class="guessbox">
       <form class="" action="/letters" method="post">
-        <input type="text" name="guess" value="" placeholder="Type in a Character">
+        <input type="text" name="guess" placeholder="Type in a Character">
         <button type="submit" name="button">Make a Guess</button>
       </form>
     </div>

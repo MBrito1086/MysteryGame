@@ -3,50 +3,40 @@ const mustacheExpress = require('mustache-express');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 const fs = require('fs');
-
-const words = fs.readFileSync("/usr/share/dict/words", "utf-8").toLowerCase().split("\n");
-
-
 const app = express();
 
 app.engine('mst', mustacheExpress());
 app.set('views', './views');
 app.set('view engine', 'mst');
-
 app.use(express.static('public'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(expressValidator());
 
-
+const words = fs.readFileSync("/usr/share/dict/words", "utf-8").toLowerCase().split("\n");
 
 const randomWord = words[Math.floor(Math.random() * words.length)];
-
 
 const PLACEHOLDER = "_";
 
 const letterGuess = [];
 
-const attempts = 8;
+const attempts = 0;
 
-
-const hangman = (randomWord, guesses) => {
+const hangman = (randomWord) =>
   randomWord
-    .split('')
-    .map(letter => guesses.includes(letter) ? letter : PLACEHOLDER)
-    .join(' ');}
+  .split('')
+  .map(letter => '_')
+  .join(' ');
 
-const invisWord = hangman(randomWord);
-
-invisWord.push(hangman(randomWord, letterGuess));
+const invisWord = hangman(randomWord).split(' ');
 
 app.get('/', (req, resp) => {
+  const invisWord = hangman(randomWord);
 
-
-  resp.render('home',  { invisWord, attempts });
+  resp.render('home',  { randomWord, invisWord, attempts });
 })
-
 
 
 app.post('/letters', (req, resp) => {
@@ -68,20 +58,20 @@ app.post('/letters', (req, resp) => {
   for (var i = 0; i < randomWord.length; i++) {
     if (randomWord[i] === guess) {
       invisWord[i] = guess;
-    } else guessed.push(guess)
+    }
   }
 
-console.log(guessed);
+  if (letterGuess.includes(guess)) {
+    alert = "You have guessed this letter!"
+  }
 
-  // req.session.letterGuess = letterGuess
-  // resp.render('home', { invisWord })
+  resp.render('home', { invisWord, attempts, letterGuess, randomWord})
   resp.redirect('/');
 })
 
-
-
-
-
+console.log(randomWord);
+console.log(invisWord);
+console.log(letterGuess)
 
 
 
